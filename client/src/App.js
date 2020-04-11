@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 
 import _Home_all_1 from './pages/Home_all_1';
+import _Testlogin from './pages/Testlogin';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Redirect to="/HomeAll" />
           </Route>
           <Route path="/HomeAll" exact component={_Home_all_1} />
+          <Route path="/loginseccess" exact component={_Testlogin} />
         </Switch>
       </Router>
     </div>

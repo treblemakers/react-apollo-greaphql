@@ -1,1 +1,9 @@
-export const Test = () => console.log("555555+ test");
+import { ApolloServer } from 'apollo-server-express';
+import { typeDefs, resolvers } from './schema';
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+export default server;

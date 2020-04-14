@@ -1,5 +1,14 @@
+import fs from "fs"
+import path from "path"
+
 import { ApolloServer } from 'apollo-server-express';
-import { typeDefs, resolvers } from './schema';
+
+import resolvers from "./resolvers/resolvers"
+// import typeDefs from './schema/typeDefs';
+
+const typeDefs = fs
+  .readFileSync(path.join(__dirname, "./schema", "schema.graphql"), "utf8")
+  .toString()
 
 const server = new ApolloServer({
   typeDefs,

@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs"
 
 import User from "../models/user"
+import Product from "../models/product"
 
 // Fake database
 // const users = [
@@ -43,7 +44,31 @@ const Mutation = {
       const password = await bcrypt.hash(args.password, 10);
   
       return User.create({ ...args, email, password })
+    },
+    createProduct: async (parent, args, context, info) => {
+      const userId = "5e96c92ace4f616570ef2fc0"
+  
+      if (!args.name || !args.description || !args.price) {
+        throw new Error("Please provide all required fields.")
+      }
+  
+      const product = await Product.create({ ...args, user: userId })
+      const user = await User.findById(userId)
+  
+      if (!user.products) {
+        user.products = [product]
+      } else {
+        user.products.push(product)
+      }
+  
+      await user.save()
+  
+      return Product.findById(product.id).populate({
+        path: "user",
+        populate: { path: "products" }
+      })
     }
+  
   };
 
 export default Mutation

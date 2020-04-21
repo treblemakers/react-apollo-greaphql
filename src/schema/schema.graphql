@@ -8,12 +8,10 @@ type Query {
 
 type Mutation {
   signup(name: String!, email: String!, password: String!): User
-  createProduct(
-    name: String!
-    description: String!
-    price: Float!
-  ): Product!
+  createProduct(name: String!, description: String!, price: Float!): Product!
 }
+
+scalar Date
 
 type User {
   id: ID!
@@ -21,6 +19,7 @@ type User {
   email: String!
   password: String!
   products: [Product]
+  createdAt: Date!
 }
 
 type Product {
@@ -29,4 +28,5 @@ type Product {
   description: String!
   price: Float!
   user: User!
+  createdAt: Date!
 }

@@ -11,7 +11,7 @@ const Query = {
   users: (parent, args, context, info) =>
     User.find({}).populate({
       path: "products",
-      populate: { path: "user" }
+      populate: { path: "user"}
     }),
   product: (parent, args, context, info) =>
     Product.findById(args.id).populate({

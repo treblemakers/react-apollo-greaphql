@@ -53,6 +53,7 @@ const Mutation = {
       }
   
       const product = await Product.create({ ...args, user: userId })
+      
       const user = await User.findById(userId)
   
       if (!user.products) {
@@ -67,6 +68,36 @@ const Mutation = {
         path: "user",
         populate: { path: "products" }
       })
+    },
+    updateProduct: async (parent, args, context, info) => {
+      const { id, name, description, price } = args
+  
+      // TODO: Check if user logged in
+  
+      // หา product ใน database
+      const product = await Product.findById(id)
+  
+      // TODO: Check if user is the owner of the product
+      const userId = "5e96c92ace4f616570ef2fc0"
+  
+      if (userId !== product.user.toString()) {
+        throw new Error("You are not authorized.")
+      }
+  
+      // Form ที่ใช้ในการ updated
+      const updateInfo = {
+        name: !!name ? name : product.name,
+        description: !!description ? description : product.description,
+        price: !!price ? price : product.price
+      }
+  
+      // Update product ใน database
+      await Product.findByIdAndUpdate(id, updateInfo)
+  
+      // หา Product ที่ update มาแสดง
+      const updatedProduct = await Product.findById(id).populate({ path: "user" })
+  
+      return updatedProduct
     }
   
   };

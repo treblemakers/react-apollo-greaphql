@@ -12,6 +12,7 @@ const createServer = async () => {
       `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cst-3icgb.gcp.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
       { useUnifiedTopology: true }
     );
+    mongoose.set('useFindAndModify', false);
 
     const app = express();
 

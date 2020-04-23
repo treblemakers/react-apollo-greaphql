@@ -45,8 +45,11 @@ const Mutation = {
 
     return User.create({ ...args, email, password });
   },
-  createProduct: async (parent, args, context, info) => {
-    const userId = "5e96c92ace4f616570ef2fc0";
+  createProduct: async (parent, args, { userId }, info) => {
+    // const userId = "5e96c92ace4f616570ef2fc0";
+
+    // Check if user logged in
+    if (!userId) throw new Error("Please log in.")
 
     if (!args.name || !args.description || !args.price) {
       throw new Error("Please provide all required fields.");
@@ -69,16 +72,18 @@ const Mutation = {
       populate: { path: "products" }
     });
   },
-  updateProduct: async (parent, args, context, info) => {
+  updateProduct: async (parent, args, { userId }, info) => {
     const { id, name, description, price } = args;
 
     // TODO: Check if user logged in
+    // Check if user logged in
+    if (!userId) throw new Error("Please log in.")
 
     // หา product ใน database
     const product = await Product.findById(id);
 
     // TODO: Check if user is the owner of the product
-    const userId = "5e96c92ace4f616570ef2fc0";
+    // const userId = "5e96c92ace4f616570ef2fc0";
 
     if (userId !== product.user.toString()) {
       throw new Error("You are not authorized.");
@@ -101,16 +106,14 @@ const Mutation = {
 
     return updatedProduct;
   },
-  deleteProduct: async (parent, args, context, info) => {
+  deleteProduct: async (parent, args, { userId }, info) => {
     const { id } = args;
 
     // Find product from given id
     const product = await Product.findById(id);
 
-    // TODO: Check if user logged in
-
     // TODO: user id from request --> Find user
-    const userId = "5e96c92ace4f616570ef2fc0";
+    // const userId = "5e96c92ace4f616570ef2fc0";
 
     // Check if user logged in
     if (!userId) throw new Error("Please log in.");

@@ -75,7 +75,7 @@ const Mutation = {
   updateProduct: async (parent, args, { userId }, info) => {
     const { id, name, description, price } = args;
 
-    // TODO: Check if user logged in
+    // const userId = "5e96c92ace4f616570ef2fc0";
     // Check if user logged in
     if (!userId) throw new Error("Please log in.")
 
@@ -83,7 +83,7 @@ const Mutation = {
     const product = await Product.findById(id);
 
     // TODO: Check if user is the owner of the product
-    // const userId = "5e96c92ace4f616570ef2fc0";
+
 
     if (userId !== product.user.toString()) {
       throw new Error("You are not authorized.");
@@ -109,15 +109,15 @@ const Mutation = {
   deleteProduct: async (parent, args, { userId }, info) => {
     const { id } = args;
 
-    // Find product from given id
-    const product = await Product.findById(id);
-
-    // TODO: user id from request --> Find user
     // const userId = "5e96c92ace4f616570ef2fc0";
 
     // Check if user logged in
     if (!userId) throw new Error("Please log in.");
 
+    // Find product from given id
+    const product = await Product.findById(id);
+
+    // TODO: user id from request --> Find user
     const user = await User.findById(userId)
 
     // Check ownership of the product

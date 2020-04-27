@@ -8,6 +8,8 @@ import { Icon } from "react-icons-kit";
 
 import { ic_person } from "react-icons-kit/md/ic_person";
 
+import Product from './product/porduct'
+
 function MyVerticallyCenteredModal(props) {
   return (
     <Modal
@@ -100,6 +102,9 @@ const Home_all_1 = () => {
           </Form>
         </Navbar.Collapse>
       </Navbar>
+
+      <Product/>
+
     </div>
   );
 };

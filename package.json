@@ -19,7 +19,9 @@
   },
   "devDependencies": {},
   "scripts": {
-    "server": "nodemon -r esm src/index.js"
+    "server": "nodemon -r esm src/index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
